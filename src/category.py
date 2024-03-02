@@ -1,3 +1,6 @@
+from src.product import Product
+
+
 class Category:
     """
     Класс для хранения категории товаров
@@ -39,6 +42,10 @@ class Category:
         :param products:
         :return:
         """
+        if not isinstance(products, Product):
+            raise TypeError
+
+        Category.quantity_unique_products += 1
         return self.__product.append(products)
 
     @property

@@ -58,5 +58,7 @@ def test_create_products(category, product_all):
     assert str(product_all[2]) == 'Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.'
 
 
-def test_add(product_all):
+def test_add(product_all, category):
     assert product_all[0] + product_all[1] == 2580000.0
+    with pytest.raises(TypeError):
+        assert product_all[0] + category
