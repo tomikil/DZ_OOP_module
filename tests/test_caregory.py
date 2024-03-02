@@ -12,7 +12,11 @@ def category():
 
 
 def test_add_product(category):
-    assert category[0].add_product(Product('Iphone 13', '512GB, Gray space', 150000, 10)) is None
+    assert Category.quantity_unique_products == 4
+    category[0].add_product(Product('Iphone 13', '512GB, Gray space', 150000, 10))
+    assert Category.quantity_unique_products == 5
+    with pytest.raises(TypeError):
+        assert category[0].add_product(category)
 
 
 def test_proucts(category):
