@@ -2,7 +2,7 @@ class Product:
     """
     Класс для товаров
     """
-    def __init__(self, name, description, price, quantity):
+    def __init__(self, name, description, price, quantity, color=None):
         """
         Инициализации элементов класса
         :param name: Наименования товара
@@ -14,6 +14,7 @@ class Product:
         self.description = description
         self._price = price
         self.quantity = quantity
+        self.color = color
 
     def __str__(self):
         """
@@ -30,6 +31,8 @@ class Product:
         :param other:
         :return:
         """
+        if type(self) is not type(other):
+            raise TypeError
         return self.price * self.quantity + other.price * other.quantity
 
     @classmethod
