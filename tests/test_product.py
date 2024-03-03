@@ -3,7 +3,6 @@ import src.utils as utils
 from src.product import Product
 from src.category import Category
 
-
 prod = [
     {
         "name": "Samsung Galaxy C23 Ultra",
@@ -50,12 +49,30 @@ def test_price(product_all):
 
 
 def test_create_products(category, product_all):
-    category.add_product(Product.create_products({"name": "Xiaomi Redmi Note 11",
-                                                  "description": "1024GB, Синий",
-                                                  "price": 31000.0,
-                                                  "quantity": 14
-                                                  }))
-    assert str(product_all[2]) == 'Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.'
+    category.add_product(Product.create_products({"name": "Samsung Galaxy C23 Ultra",
+                                                  "description": "256GB, Серый цвет, 200MP камера",
+                                                  "price": 200000.0,
+                                                  "quantity": 5
+                                                  }, category.copy_product))
+    assert product_all[0].quantity == 10
+    assert product_all[0].price == 200000.0
+
+    category.add_product(Product.create_products({"name": "Iphone 15 Pro MAX",
+                                                  "description": "256GB, Синий",
+                                                  "price": 190000.0,
+                                                  "quantity": 7
+                                                  }, category.copy_product))
+    assert product_all[-1].quantity == 7
+    assert product_all[-1].price == 190000.0
+
+    category.add_product(Product.create_products({"name": "Samsung Galaxy C23 Ultra",
+                                                  "description": "256GB, Серый цвет, 200MP камера",
+                                                  "price": 150000.0,
+                                                  "quantity": 5
+                                                  }, category.copy_product))
+
+    assert product_all[0].quantity == 15
+    assert product_all[0].price == 200000.0
 
 
 def test_add(product_all, category):
