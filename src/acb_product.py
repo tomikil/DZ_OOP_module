@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Goods(ABC):
+class AbcProducts(ABC):
     @abstractmethod
     def __str__(self):
         pass
@@ -16,5 +16,5 @@ class Goods(ABC):
 
     @classmethod
     @abstractmethod
-    def create_products(cls, products):
+    def create_products(cls, product, list_product):
         pass

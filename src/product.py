@@ -1,8 +1,8 @@
-from src.goods import Goods
+from src.acb_product import AbcProducts
 from src.mixin_log import MixinLog
 
 
-class Product(Goods, MixinLog):
+class Product(AbcProducts, MixinLog):
     """
     Класс для товаров
     """
@@ -41,13 +41,17 @@ class Product(Goods, MixinLog):
         return self.price * self.quantity + other.price * other.quantity
 
     @classmethod
-    def create_products(cls, products):
+    def create_products(cls, product: dict, list_product: list):
         """
         Добавляеть новый товар
-        :param products:
-        :return:
         """
-        return cls(**products)
+        for item in list_product:
+            if item.name == product.get('name'):
+                item.quantity += product.get('quantity')
+                item.price = max(item.price, product.get('price'))
+                print("\nЭтот товар уже есть на складе, количество в списке увеличено, цена выбрана наибольшая")
+
+            return cls(**product)
 
     @property
     def price(self):
