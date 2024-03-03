@@ -1,4 +1,5 @@
 from src.product import Product
+# from src.mixin_log import MixinLog
 
 
 class Category:
@@ -15,9 +16,11 @@ class Category:
         :param description: описание категории товаров
         :param product: Список товаров
         """
+
         self.name = name
         self.description = description
         self.__product = product
+        super().__init__()
         Category.quantity_category += 1
         Category.quantity_unique_products += len(self.__product)
 
