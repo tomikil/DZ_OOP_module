@@ -1,4 +1,8 @@
-class Product:
+from src.acb_product import AbcProducts
+from src.mixin_log import MixinLog
+
+
+class Product(AbcProducts, MixinLog):
     """
     Класс для товаров
     """
@@ -15,6 +19,7 @@ class Product:
         self._price = price
         self.quantity = quantity
         self.color = color
+        super().__init__()
 
     def __str__(self):
         """
@@ -32,17 +37,21 @@ class Product:
         :return:
         """
         if type(self) is not type(other):
-            raise TypeError
+            raise TypeError('Складывать можно только объекты Product или его наследников')
         return self.price * self.quantity + other.price * other.quantity
 
     @classmethod
-    def create_products(cls, number):
+    def create_products(cls, product: dict, list_product: list):
         """
         Добавляеть новый товар
-        :param number:
-        :return:
         """
-        return cls(**number)
+        for item in list_product:
+            if item.name == product.get('name'):
+                item.quantity += product.get('quantity')
+                item.price = max(item.price, product.get('price'))
+                print("\nЭтот товар уже есть на складе, количество в списке увеличено, цена выбрана наибольшая")
+
+            return cls(**product)
 
     @property
     def price(self):

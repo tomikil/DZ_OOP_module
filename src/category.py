@@ -1,7 +1,8 @@
 from src.product import Product
+from src.abc_category import AbcCategory
 
 
-class Category:
+class Category(AbcCategory):
     """
     Класс для хранения категории товаров
     """
@@ -15,9 +16,11 @@ class Category:
         :param description: описание категории товаров
         :param product: Список товаров
         """
+
         self.name = name
         self.description = description
         self.__product = product
+        super().__init__()
         Category.quantity_category += 1
         Category.quantity_unique_products += len(self.__product)
 
@@ -36,14 +39,14 @@ class Category:
         """
         return f"{self.name}, количество продуктов: {len(self)} шт."
 
-    def add_product(self, products):
+    def add_product(self, products: object):
         """
         Добавление обьекта класса Product в список категории
         :param products:
         :return:
         """
         if not isinstance(products, Product):
-            raise TypeError
+            raise TypeError("Добавлять можно только объекты Product или его наследников")
 
         Category.quantity_unique_products += 1
         return self.__product.append(products)
@@ -55,3 +58,10 @@ class Category:
         :return:
         """
         return self.__product
+
+    @property
+    def copy_product(self):
+        list_product = []
+        for product in self.__product:
+            list_product.append(product)
+        return list_product
