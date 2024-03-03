@@ -37,7 +37,7 @@ class Product(AbcProducts, MixinLog):
         :return:
         """
         if type(self) is not type(other):
-            raise TypeError
+            raise TypeError('Складывать можно только объекты Product или его наследников')
         return self.price * self.quantity + other.price * other.quantity
 
     @classmethod
