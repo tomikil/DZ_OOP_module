@@ -1,8 +1,9 @@
 from src.product import Product
 from src.abc_category import AbcCategory
+from src.mixin_log import MixinLog
 
 
-class Category(AbcCategory):
+class Category(AbcCategory, MixinLog):
     """
     Класс для хранения категории товаров
     """
