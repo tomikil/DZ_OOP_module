@@ -2,6 +2,7 @@ from src.category import Category
 from src.product import Product
 import src.utils as utils
 from src.order import Order
+from src.lawn_grass import LawnGrass
 
 file = 'products.json'
 
@@ -16,7 +17,8 @@ conect[0].add_product(Product.create_products({"name": "Samsung Galaxy C23 Ultra
 order = Order.create_order(('Samsung Galaxy C23 Ultra', 2), conect[0].copy_product)
 print(f'\n{order}')
 
-
+lg = LawnGrass('grass', 'ff', 200.0, 5, 'Зеленый', 'aa',
+               'dd')
 
 
 
