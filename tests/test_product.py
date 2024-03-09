@@ -2,6 +2,7 @@ import pytest
 import src.utils as utils
 from src.product import Product
 from src.category import Category
+from src.lawn_grass import LawnGrass
 
 prod = [
     {
@@ -77,5 +78,8 @@ def test_create_products(category, product_all):
 
 def test_add(product_all, category):
     assert product_all[0] + product_all[1] == 2580000.0
-    with pytest.raises(TypeError):
+
+
+def test_TypeError(category, product_all):
+    with pytest.raises(TypeError) as e_info:
         assert product_all[0] + category
