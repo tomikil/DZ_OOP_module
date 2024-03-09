@@ -47,10 +47,15 @@ class Category(AbcCategory, MixinLog):
         :param products:
         :return:
         """
-        if not isinstance(products, Product):
-            raise TypeError("Добавлять можно только объекты Product или его наследников")
-        if not products.quantity > 0:
-            raise ProductQuantityZeroError()
+        try:
+            if not isinstance(products, Product):
+                raise TypeError("Добавлять можно только объекты Product или его наследников")
+            if not products.quantity > 0:
+                raise ProductQuantityZeroError()
+            else:
+                print("Товар успешно добавлен")
+        except ProductQuantityZeroError:
+            print("Кодичество товара не должно быть нуль.\nОбработка добавления товара завершена.")
 
         Category.quantity_unique_products += 1
         return self.__product.append(products)
