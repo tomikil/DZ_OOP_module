@@ -2,6 +2,7 @@ import pytest
 from src.product import Product
 from src.category import Category
 from src.order import Order
+from exception import ProductQuantityZeroError
 
 prod = [
     {
@@ -49,3 +50,12 @@ def test_len(category):
     order = Order.create_order(('Samsung Galaxy C23 Ultra', 2), category.copy_product)
     assert order.__len__() == 2
 
+
+def test_products(category):
+    order = Order("Samsung Galaxy", 2, 360_000.0)
+    assert order.products == 'Samsung Galaxy'
+
+
+def test_create_order_error(category):
+    with pytest.raises(ProductQuantityZeroError) as e_info:
+        assert Order.create_order(('Samsung Galaxy C23 Ultra', 0), category.copy_product)

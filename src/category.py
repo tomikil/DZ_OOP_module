@@ -1,6 +1,7 @@
 from src.product import Product
 from src.abc_category import AbcCategory
 from src.mixin_log import MixinLog
+from exception import ProductQuantityZeroError
 
 
 class Category(AbcCategory, MixinLog):
@@ -48,6 +49,8 @@ class Category(AbcCategory, MixinLog):
         """
         if not isinstance(products, Product):
             raise TypeError("Добавлять можно только объекты Product или его наследников")
+        if not products.quantity > 0:
+            raise ProductQuantityZeroError()
 
         Category.quantity_unique_products += 1
         return self.__product.append(products)
@@ -66,3 +69,16 @@ class Category(AbcCategory, MixinLog):
         for product in self.__product:
             list_product.append(product)
         return list_product
+
+    def get_average_price_goods(self):
+        try:
+            sum_price = 0
+            quantity = 0
+            for product in self.__product:
+                sum_price += product.price
+                quantity += 1
+            result = round(sum_price / quantity, 1)
+        except ZeroDivisionError:
+            return 0.0
+        else:
+            return result
